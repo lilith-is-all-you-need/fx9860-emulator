@@ -1,0 +1,372 @@
+{
+  "date": "2026-11-16",
+  "hardwareValidated": false,
+  "completeCasioOs": false,
+  "emulatorSha256": "757b7ca3faf742ca555c5278cddf8c0d9385c585d3e5c6047fbadfcd649137cd",
+  "probe": {
+    "g1aSha256": "a6ed124ac2260c6b22b61ba3f64b1796f6ea0c555b12fb5cabf8ba40cfc9328e",
+    "bytes": 16572,
+    "elfSha256": "21e14e1d41c9f6f31b47afd5f4b564633d6d64cce211a1179b3c9d5a61ee4979",
+    "elfG1aPairVerified": true,
+    "residentBytes": 9780,
+    "residentAbsoluteFixups": 231,
+    "outsideResidentReferences": 0,
+    "minimumTestedHeapBytes": 49152
+  },
+  "regressions": {
+    "upstreamCpu": "passed",
+    "pythonTestsRun": 62,
+    "pythonTestsPassed": 56,
+    "optionalFirmwareTestsSkippedWithoutInput": 6,
+    "bridgeChecksPassed": 55,
+    "loaderProfileTestsPassed": 8,
+    "firmwareMatrix": {
+      "versions": [
+        "3.40",
+        "3.60",
+        "3.71"
+      ],
+      "variants": [
+        "3070",
+        "3071",
+        "3072"
+      ],
+      "testsPerImage": 9,
+      "allPassed": true,
+      "oracle": "Unmodified OS refill and idle/clean 01E7 instructions run in SH interpreter"
+    }
+  },
+  "probeCases": [
+    {
+      "case": "v3-371-stress-menu",
+      "passed": true,
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "80010070",
+        "cycles": 2110415570,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      },
+      "diagnostics": {
+        "ok": true,
+        "memoryProfile": "default",
+        "heapBase": "88040000",
+        "heapBytes": 49152,
+        "stackTop": "88080000",
+        "stackFloor": "00000000",
+        "executedSteps": 157275297,
+        "stepLimit": 0,
+        "realMmu": false,
+        "realOsExit": false,
+        "functionalTlb": true,
+        "instructionCache": true,
+        "quitCallback": true,
+        "copyBackDataCache": false,
+        "writableAddin": false,
+        "osRefill": "firmware-derived-RAM-page-table",
+        "osModel": "HLE",
+        "firmwareAssisted": true,
+        "fileMapStress": true
+      }
+    },
+    {
+      "case": "v3-360-exit",
+      "passed": true,
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "DEAD0000",
+        "cycles": 2109590712,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      },
+      "diagnostics": {
+        "ok": true,
+        "memoryProfile": "default",
+        "heapBase": "88040000",
+        "heapBytes": 49152,
+        "stackTop": "88080000",
+        "stackFloor": "00000000",
+        "executedSteps": 157219118,
+        "stepLimit": 0,
+        "realMmu": false,
+        "realOsExit": false,
+        "functionalTlb": true,
+        "instructionCache": true,
+        "quitCallback": true,
+        "copyBackDataCache": false,
+        "writableAddin": false,
+        "osRefill": "firmware-derived-RAM-page-table",
+        "osModel": "HLE",
+        "firmwareAssisted": true,
+        "fileMapStress": false
+      }
+    },
+    {
+      "case": "v3-340-stress-exit",
+      "passed": true,
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "DEAD0000",
+        "cycles": 2109547942,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      },
+      "diagnostics": {
+        "ok": true,
+        "memoryProfile": "default",
+        "heapBase": "88040000",
+        "heapBytes": 49152,
+        "stackTop": "88080000",
+        "stackFloor": "00000000",
+        "executedSteps": 157215828,
+        "stepLimit": 0,
+        "realMmu": false,
+        "realOsExit": false,
+        "functionalTlb": true,
+        "instructionCache": true,
+        "quitCallback": true,
+        "copyBackDataCache": false,
+        "writableAddin": false,
+        "osRefill": "firmware-derived-RAM-page-table",
+        "osModel": "HLE",
+        "firmwareAssisted": true,
+        "fileMapStress": true
+      }
+    }
+  ],
+  "refusalCases": [
+    {
+      "case": "missing-config",
+      "passed": true
+    },
+    {
+      "case": "small-heap",
+      "passed": true
+    },
+    {
+      "case": "foreign-log",
+      "passed": true
+    },
+    {
+      "case": "unknown-os",
+      "passed": true
+    },
+    {
+      "case": "wrong-hash",
+      "passed": true
+    }
+  ],
+  "sampleCases": [
+    {
+      "case": "direct-khicas",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "running",
+        "pc": "80010070",
+        "cycles": 285059,
+        "reason": "running",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "loader-khicas",
+      "blocked": true,
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "DEAD0000",
+        "cycles": 62734,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "direct-wolf",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "running",
+        "pc": "00302D70",
+        "cycles": 148416953,
+        "reason": "running",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "loader-wolf",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "running",
+        "pc": "0030A346",
+        "cycles": 149686034,
+        "reason": "running",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "direct-fruit",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "running",
+        "pc": "00310292",
+        "cycles": 99928056,
+        "reason": "running",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "loader-fruit",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "running",
+        "pc": "80010070",
+        "cycles": 108762746,
+        "reason": "running",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "direct-mines",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "80010070",
+        "cycles": 52655097,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "loader-mines",
+      "blocked": false,
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "80010070",
+        "cycles": 68849822,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "loader-mines-reentry",
+      "status": {
+        "ok": true,
+        "state": "exited",
+        "pc": "80010070",
+        "cycles": 37950307,
+        "reason": "exited",
+        "error": "",
+        "osMenu": false
+      }
+    },
+    {
+      "case": "direct-quit-wolf",
+      "status": {
+        "ok": true,
+        "state": "rebooted",
+        "pc": "00300200",
+        "cycles": 0,
+        "reason": "rebooted",
+        "error": "",
+        "osMenu": false
+      },
+      "faultError": "HLE reset requested (reset-vector)",
+      "rebootCause": "reset-vector"
+    },
+    {
+      "case": "loader-quit-wolf",
+      "status": {
+        "ok": true,
+        "state": "rebooted",
+        "pc": "00300200",
+        "cycles": 0,
+        "reason": "rebooted",
+        "error": "",
+        "osMenu": false
+      },
+      "faultError": "HLE reset requested (reset-vector)",
+      "rebootCause": "reset-vector"
+    },
+    {
+      "case": "direct-quit-fruit",
+      "status": {
+        "ok": true,
+        "state": "rebooted",
+        "pc": "00300200",
+        "cycles": 0,
+        "reason": "rebooted",
+        "error": "",
+        "osMenu": false
+      },
+      "faultError": "unimplemented fx-9860G syscall 0x0218 (r4=00000000 r5=B4000000 r6=00000000 r7=00000008), called from 0x00308440",
+      "rebootCause": "unexpected-fault"
+    },
+    {
+      "case": "loader-quit-fruit",
+      "status": {
+        "ok": true,
+        "state": "rebooted",
+        "pc": "00300200",
+        "cycles": 0,
+        "reason": "rebooted",
+        "error": "",
+        "osMenu": false
+      },
+      "faultError": "unimplemented fx-9860G syscall 0x0218 (r4=00000000 r5=A8053E62 r6=00000000 r7=000003DC), called from 0x00308440",
+      "rebootCause": "unexpected-fault"
+    },
+    {
+      "case": "ftune3-direct",
+      "status": {
+        "ok": true,
+        "state": "rebooted",
+        "pc": "00300200",
+        "cycles": 0,
+        "reason": "rebooted",
+        "error": "",
+        "osMenu": false
+      },
+      "faultError": "unimplemented fx-9860G syscall 0x0218 (r4=00000000 r5=0000000F r6=00000000 r7=00024000), called from 0x00308D18"
+    },
+    {
+      "case": "ftune3-loader",
+      "status": {
+        "ok": true,
+        "state": "rebooted",
+        "pc": "00300200",
+        "cycles": 0,
+        "reason": "rebooted",
+        "error": "",
+        "osMenu": false
+      },
+      "faultError": "unimplemented fx-9860G syscall 0x0218 (r4=00000000 r5=A8051E62 r6=00000000 r7=000003DC), called from 0x00308D18"
+    }
+  ],
+  "limitations": [
+    "No full firmware boot",
+    "No complete flash compaction or copy-back data cache",
+    "File write map restoration trigger is conservative stress behavior",
+    "01E7 dirty commit unsupported; 0218 remains missing",
+    "Full KhiCAS still rejected by released Loader pending hardware mapping evidence"
+  ]
+}

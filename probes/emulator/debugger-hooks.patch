@@ -1,0 +1,196 @@
+--- upstream/cpu.c
++++ patched/cpu.c
+@@ -1,3 +1,5 @@
++#include "debug_bridge.h"
++#include "hardware_model.h"
+ /*
+  * SH4AL-DSP integer interpreter (the fx-CG50's SH7305 has no FPU, so 0xFxxx
+  * opcodes, which are DSP data instructions here, are treated as illegal).
+@@ -134,6 +136,9 @@
+         return;
+     }
+     cpu->in_delay_slot = true;
++    cpu->pc = pc + 2;
++    probe_debug_before(cpu, pc + 2);
++    if (cpu->state != CPU_RUNNING) return;
+     exec(cpu, pc + 2);
+     cpu->in_delay_slot = false;
+     if (cpu->exception || cpu->mem->fault || cpu->state != CPU_RUNNING) {
+@@ -294,7 +299,7 @@
+         case 0x6: R0 = mem_read32(mem, RN); return;                               /* MOVLI.L @Rm,R0 */
+         case 0x7: mem_write32(mem, RN, R0); set_t(cpu, true); return;             /* MOVCO.L R0,@Rn */
+         case 0xC: mem_write32(mem, RN, R0); return;                               /* MOVCA.L R0,@Rn */
+-        case 0x8: case 0x9: case 0xA: case 0xB: case 0xD: case 0xE: return;       /* cache ops: no-op */
++        case 0x8: case 0x9: case 0xA: case 0xB: case 0xD: case 0xE: probe_hw_cache(cpu, op, RN); return;       /* cache ops: no-op */
+         }
+         break;
+     case 0x4: mem_write8(mem, R0 + RN, (uint8_t)RM); return;
+@@ -306,7 +311,7 @@
+         case 0x0008: set_t(cpu, false); return;                 /* CLRT */
+         case 0x0018: set_t(cpu, true); return;                  /* SETT */
+         case 0x0028: cpu->mach = cpu->macl = 0; return;         /* CLRMAC */
+-        case 0x0038: return;                                    /* LDTLB: we have no TLB */
++        case 0x0038: probe_hw_ldtlb(cpu); return;                                    /* LDTLB: we have no TLB */
+         case 0x0048: set_bit(cpu, SR_S, false); return;         /* CLRS */
+         case 0x0058: set_bit(cpu, SR_S, true); return;          /* SETS */
+         }
+@@ -572,7 +577,9 @@
+ {
+     Memory *mem = cpu->mem;
+     cpu->op_pc = pc;
+-    uint16_t op = mem_read16(mem, pc);
++    probe_debug_ignore_memory = true;
++    uint16_t op = probe_hw_fetch(cpu, pc);
++    probe_debug_ignore_memory = false;
+     if (mem->fault)
+         return;
+     unsigned n = op >> 8 & 0xF, m = op >> 4 & 0xF;
+@@ -656,6 +663,9 @@
+ /* Executes the instruction at PC (or the syscall/exit it stands for). */
+ static inline void step_one(Cpu *cpu)
+ {
++    probe_debug_before(cpu, cpu->pc);
++    if (cpu->state != CPU_RUNNING) return;
++    if (probe_hw_private_call(cpu)) return;
+     if ((cpu->pc & ~(SYSCALL_ENTRY ^ SYSCALL_ENTRY_FX)) == (SYSCALL_ENTRY & SYSCALL_ENTRY_FX)) { /* either OS's */
+         if (cpu->syscall) {
+             cpu->syscall(cpu, cpu->syscall_user);
+@@ -667,6 +677,7 @@
+         return;
+     }
+     if (cpu->pc == EXIT_ADDR) {
++        if (!probe_hw_exit(cpu)) return;
+         cpu->state = CPU_EXITED;
+         cpu->attention = true;
+         return;
+@@ -677,6 +688,14 @@
+         return;
+     }
+ 
++    /* Retry a guest-handled fault with the original architectural registers.
++     * This also restores the branch PC when its delay slot faults. Bus/device
++     * side effects of multi-access instructions are not rolled back. */
++    unsigned char architectural[offsetof(Cpu, intmu)];
++    bool precise = cpu->mem->probe_hw &&
++        ((cpu->vbr>=0x88000000u&&cpu->vbr<0x88080000u)||
++         (cpu->vbr>=0xa8000000u&&cpu->vbr<0xa8080000u));
++    if(precise)memcpy(architectural,cpu,sizeof architectural);
+     cpu->exception = false;
+     exec(cpu, cpu->pc);
+     if (cpu->mem->stall_cycles) { /* uncached memory accesses */
+@@ -684,6 +703,7 @@
+         cpu->mem->stall_cycles = 0;
+     }
+     if (cpu->mem->fault) {
++        if(precise)memcpy(cpu,architectural,sizeof architectural);
+         memory_exception(cpu);
+         return;
+     }
+@@ -705,6 +725,7 @@
+ static void run_until(Cpu *cpu, uint64_t end)
+ {
+     while (cpu->state == CPU_RUNNING && cpu->instructions < end) {
++        probe_debug_poll(cpu);
+         cpu->attention = false;
+         if (cpu->instructions >= cpu->next_event && cpu->event)
+             cpu->event(cpu, cpu->event_user);
+--- upstream/mem.h
++++ patched/mem.h
+@@ -4,6 +4,8 @@
+ #include <stdbool.h>
+ #include <stddef.h>
+ #include <stdint.h>
++/* Hook covers interpreted data accesses; debugger reads use raw pages. */
++extern void probe_debug_memory(uint32_t address, int size, bool write);
+ 
+ /*
+  * Address space of the fx-CG10/20/50 (SH7305: SH4AL-DSP core + peripherals).
+@@ -78,6 +80,7 @@
+ } UncachedRegion;
+ 
+ typedef struct Memory_ {
++    struct ProbeHardware *probe_hw;
+     uint8_t **rd;        /* per page: host address of the page, NULL if not plain memory */
+     uint8_t **wr;        /* same, NULL for read-only pages */
+     uint8_t *mmio_of;    /* per page: index + 1 into mmio[], 0 if none */
+@@ -125,15 +128,21 @@
+ uint32_t mem_read_slow(Memory *mem, uint32_t addr, int size);
+ void mem_write_slow(Memory *mem, uint32_t addr, uint32_t value, int size);
+ 
++uint32_t probe_hw_read(Memory *, uint32_t, int);
++void probe_hw_write(Memory *, uint32_t, uint32_t, int);
+ /* SH is big-endian. Faulting accesses read as 0 and set mem->fault. */
+ static inline uint8_t mem_read8(Memory *mem, uint32_t addr)
+ {
++    probe_debug_memory(addr, 1, false);
++    if(mem->probe_hw) return (uint8_t)probe_hw_read(mem, addr, 1);
+     uint8_t *p = mem->rd[addr >> PAGE_SHIFT];
+     return p ? p[addr & (PAGE_SIZE - 1)] : (uint8_t)mem_read_slow(mem, addr, 1);
+ }
+ 
+ static inline uint16_t mem_read16(Memory *mem, uint32_t addr)
+ {
++    probe_debug_memory(addr, 2, false);
++    if(mem->probe_hw) return (uint16_t)probe_hw_read(mem, addr, 2);
+     uint8_t *p = mem->rd[addr >> PAGE_SHIFT];
+     if (!p || (addr & 1))
+         return (uint16_t)mem_read_slow(mem, addr, 2);
+@@ -143,6 +152,8 @@
+ 
+ static inline uint32_t mem_read32(Memory *mem, uint32_t addr)
+ {
++    probe_debug_memory(addr, 4, false);
++    if(mem->probe_hw) return (uint32_t)probe_hw_read(mem, addr, 4);
+     uint8_t *p = mem->rd[addr >> PAGE_SHIFT];
+     if (!p || (addr & 3))
+         return mem_read_slow(mem, addr, 4);
+@@ -152,6 +163,8 @@
+ 
+ static inline void mem_write8(Memory *mem, uint32_t addr, uint8_t value)
+ {
++    probe_debug_memory(addr, 1, true);
++    if(mem->probe_hw) { probe_hw_write(mem, addr, value, 1); return; }
+     uint8_t *p = mem->wr[addr >> PAGE_SHIFT];
+     if (p)
+         p[addr & (PAGE_SIZE - 1)] = value;
+@@ -161,6 +174,8 @@
+ 
+ static inline void mem_write16(Memory *mem, uint32_t addr, uint16_t value)
+ {
++    probe_debug_memory(addr, 2, true);
++    if(mem->probe_hw) { probe_hw_write(mem, addr, value, 2); return; }
+     uint8_t *p = mem->wr[addr >> PAGE_SHIFT];
+     if (!p || (addr & 1)) {
+         mem_write_slow(mem, addr, value, 2);
+@@ -173,6 +188,8 @@
+ 
+ static inline void mem_write32(Memory *mem, uint32_t addr, uint32_t value)
+ {
++    probe_debug_memory(addr, 4, true);
++    if(mem->probe_hw) { probe_hw_write(mem, addr, value, 4); return; }
+     uint8_t *p = mem->wr[addr >> PAGE_SHIFT];
+     if (!p || (addr & 3)) {
+         mem_write_slow(mem, addr, value, 4);
+--- upstream/mem.c
++++ patched/mem.c
+@@ -1,3 +1,4 @@
++#include "hardware_model.h"
+ #include "mem.h"
+ 
+ #include <stdio.h>
+@@ -18,6 +19,7 @@
+ 
+ void mem_free(Memory *mem)
+ {
++    probe_hw_destroy(mem);
+     for (int i = 0; i < mem->block_count; i++)
+         free(mem->blocks[i]);
+     free(mem->rd);
+@@ -101,6 +103,7 @@
+ 
+ uint8_t *mem_ptr(Memory *mem, uint32_t addr, uint32_t len)
+ {
++    if(mem->probe_hw) return probe_hw_pointer(mem, addr, len);
+     if (len == 0)
+         len = 1;
+     uint8_t *base = mem->rd[addr >> PAGE_SHIFT];

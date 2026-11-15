@@ -1,0 +1,76 @@
+{
+  "scope": "FX syscall 0x02EE System_GetOSVersion and unchanged Ftune3 v2.40 replay",
+  "emulatorSha256": "03e72abe709c866c9ee4bc01887200f859c443f19186143da9a6b089cf68f5ff",
+  "hardwareValidated": false,
+  "abi": {
+    "output": "10 ASCII characters MM.mm.ssss plus NUL; 11 bytes",
+    "modeledVersion": "03.70.0200",
+    "returnValue": "void; no ABI assertion on r0",
+    "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_System.HTM"
+  },
+  "tests": {
+    "cpu": "passed",
+    "runtimeGroups": 13,
+    "hardwareGroups": 15,
+    "fxSyscallGroups": 13,
+    "recoveryGroups": 12,
+    "profileGroups": 8,
+    "coverageAudit": "passed"
+  },
+  "ftune": {
+    "sha256": "4ddb90f3ffaff961d21bf87ebb48b24062a00b952f4ba872845a4539f24d69bd",
+    "bytes": 57676,
+    "guestMemoryOrRegisterEdits": false,
+    "cases": [
+      {
+        "mode": "direct",
+        "versionCallsCompleted": 5,
+        "mainUiReached": true,
+        "F2PresetAndF1DefaultExecuted": true,
+        "FRQCR_observed_in_target_register_ui": {
+          "F2": "0F102203",
+          "F1_default": "0F112213"
+        },
+        "menuReplacementFault": "unimplemented fx-9860G syscall 0x01E7 (r4=00000000 r5=0000000F r6=00000000 r7=00024000), called from 0x00308D0A",
+        "finalState": "rebooted",
+        "recoverySaved": true,
+        "screenshotSha256": {
+          "01-main.bmp": "6b0a69e077de0b52353a88b53be2ded708f7c2750cc53b00d066172b990d644e",
+          "02-F2.bmp": "d213b8e9b0e2c895b0c765174a0fc0070d2fd487b53ae234c0e621cde008fdc0",
+          "03-F2-registers.bmp": "0496e9403e6f5a1115d4b59b84a7c5680f125026059e6387912472c9d6c53bee",
+          "04-default.bmp": "1a33e706286c90d60f7883efa5cdecf3a6d2bc4f1a3f33186665b8e573ad01b8",
+          "05-default-registers.bmp": "d23101061ea8bb6143728c10a2b652731eeac5e41a3b1f63ab25682fa9492c3d",
+          "06-menu.bmp": "ab62971d995bc71fc0f8d7eca6d6db4305e78d1d3f4d7c202c06112f18de16a8",
+          "07-after-replace.bmp": "da5a9972168b7dbb35d7eb54e683b0987cd1d206d5869664ab9bbcb77f5197ab"
+        }
+      },
+      {
+        "mode": "loader",
+        "versionCallsCompleted": 5,
+        "mainUiReached": true,
+        "F2PresetAndF1DefaultExecuted": true,
+        "FRQCR_observed_in_target_register_ui": {
+          "F2": "0F102203",
+          "F1_default": "0F112213"
+        },
+        "menuReplacementFault": "unimplemented fx-9860G syscall 0x01E7 (r4=00000000 r5=A8051E62 r6=00000000 r7=000003DC), called from 0x00308D0A",
+        "finalState": "rebooted",
+        "recoverySaved": true,
+        "screenshotSha256": {
+          "01-main.bmp": "6b0a69e077de0b52353a88b53be2ded708f7c2750cc53b00d066172b990d644e",
+          "02-F2.bmp": "d213b8e9b0e2c895b0c765174a0fc0070d2fd487b53ae234c0e621cde008fdc0",
+          "03-F2-registers.bmp": "0496e9403e6f5a1115d4b59b84a7c5680f125026059e6387912472c9d6c53bee",
+          "04-default.bmp": "1a33e706286c90d60f7883efa5cdecf3a6d2bc4f1a3f33186665b8e573ad01b8",
+          "05-default-registers.bmp": "4925f0a97468c5ebdc61989a460ee1f3d1d7b5a1d905bb4ad0b73f167e6890a4",
+          "06-menu.bmp": "e35337ba6012ef7c87a14b23ea785b4c6a94f951127a1f61659efd5c2d38c828",
+          "07-after-replace.bmp": "da5a9972168b7dbb35d7eb54e683b0987cd1d206d5869664ab9bbcb77f5197ab"
+        }
+      }
+    ]
+  },
+  "limits": [
+    "First-run configuration read prompt remains; persistence is not certified.",
+    "Clock register UI changes are observed; physical overclock stability and timing accuracy are not certified.",
+    "Full exit still blocked by unknown syscall 0x01E7; default recovery saves diagnostics and rebuilds HLE OS."
+  ]
+}

@@ -1,0 +1,2027 @@
+{
+  "source": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm",
+  "sha256": "2a915e127495385c583f6c1fe805c58c8278338500d49f1b308be0808c783435",
+  "scope": "Historical FX 1.x/2.00 index; not verified exhaustive for GIII 03.70",
+  "entries": {
+    "1": {
+      "name": "TLB exception handler (protection)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2": {
+      "name": "CPU address error handler (instruction/data)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3": {
+      "name": "TLB exception handler (miss/invalid/initial page write)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "5": {
+      "name": "App_RegisterAddins",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "9": {
+      "name": "FindFreeAddinSlot",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "10": {
+      "name": "GetAddindHeaderAddr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "14": {
+      "name": "App_GetAddindEstripInformation",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "19": {
+      "name": "GlibAddinAplExecutionCheck",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "20": {
+      "name": "GlibGetAddinLibInf",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "21": {
+      "name": "GlibGetOSVersionInfo",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_GlibGetOSVersionInfo.HTM"
+    },
+    "24": {
+      "name": "MMU_FlushCache",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "27": {
+      "name": "DD_Clear",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "28": {
+      "name": "Bdisp_WriteGraph_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "29": {
+      "name": "Bdisp_WriteGraph_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "30": {
+      "name": "Bdisp_WriteGraph_DDVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "34": {
+      "name": "Bdisp_ReadArea_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "36": {
+      "name": "Bdisp_GetDisp_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "37": {
+      "name": "DD_Read",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "38": {
+      "name": "DD_ReadFromPage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "39": {
+      "name": "DD_WriteToPage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "40": {
+      "name": "Bdisp_PutDisp_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "42": {
+      "name": "=0x02F",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "47": {
+      "name": "Bdisp_DrawShapeToVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "48": {
+      "name": "Bdisp_DrawLineVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "49": {
+      "name": "Bdisp_ClearLineVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "50": {
+      "name": "Bdisp_DrawShapeToDD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "51": {
+      "name": "Bdisp_DrawShapeToVRAM_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "52": {
+      "name": "=0x032",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "53": {
+      "name": "=0x033",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "55": {
+      "name": "Wait_ms(duration)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "57": {
+      "name": "RTC_Reset",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_RTC.HTM"
+    },
+    "58": {
+      "name": "RTC_GetTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_RTC.HTM"
+    },
+    "59": {
+      "name": "RTC_GetTicks",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_RTC.HTM"
+    },
+    "60": {
+      "name": "RTC_Elapsed_ms",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_RTC.HTM"
+    },
+    "92": {
+      "name": "Num_UIntToBCD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "93": {
+      "name": "Num_BCDToUInt",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "280": {
+      "name": "Timer_Install",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Timer.HTM"
+    },
+    "281": {
+      "name": "Timer_Deinstall",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Timer.HTM"
+    },
+    "282": {
+      "name": "Timer_Start",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Timer.HTM"
+    },
+    "283": {
+      "name": "Timer_Stop",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Timer.HTM"
+    },
+    "287": {
+      "name": "Bdisp_PutDispArea_DD (possibly broken)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "301": {
+      "name": "DD_Poweroff",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "304": {
+      "name": "Wait_ms(duration)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "306": {
+      "name": "DD_SetContrast",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "307": {
+      "name": "DD_SetFRS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "308": {
+      "name": "DD_SetBias",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "309": {
+      "name": "GetVRAMAddress",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "310": {
+      "name": "GetCharacterGlyph",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "311": {
+      "name": "GetCharacterMiniGlyph",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "312": {
+      "name": "Cursor_SetPosition",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "313": {
+      "name": "Cursor_SetFlashStyle",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "314": {
+      "name": "Cursor_SetFlashMode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "315": {
+      "name": "Cursor_GetSettings",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "316": {
+      "name": "void Print_OS( unsigned char*msg, int type );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "322": {
+      "name": "Bdisp_AllClr_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "323": {
+      "name": "Bdisp_AllClr_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "324": {
+      "name": "Bdisp_AllClr_DDVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "325": {
+      "name": "Bdisp_GetDisp_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "326": {
+      "name": "Bdisp_SetPoint_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "327": {
+      "name": "Bdisp_SetPoint_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "328": {
+      "name": "Bdisp_SetPoint_DDVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "329": {
+      "name": "Bdisp_GetPoint_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "330": {
+      "name": "Bdisp_AreaClr_DD",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "331": {
+      "name": "Bdisp_AreaClr_VRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "332": {
+      "name": "Bdisp_AreaClr_DDVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "333": {
+      "name": "Bdisp_AreaReverseVRAM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "336": {
+      "name": "void PrintXY( int x, int y, unsigned char*msg, int type )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "339": {
+      "name": "Disp_Save",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "340": {
+      "name": "Disp_Restore",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "341": {
+      "name": "Disp_GetPtr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "342": {
+      "name": "PopUpWin",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "344": {
+      "name": "Disp_Manage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "345": {
+      "name": "System_UpdateOS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "349": {
+      "name": "PrintCR",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "351": {
+      "name": "atoi",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_LongToAscHex.HTM"
+    },
+    "352": {
+      "name": "int LongToAsc( int value, unsigned char *dest, int digits );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_LongToAscHex.HTM"
+    },
+    "353": {
+      "name": "int LongToAscHex( int value, unsigned char *dest, int digits );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_LongToAscHex.HTM"
+    },
+    "354": {
+      "name": "void pc_toupper( char* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "355": {
+      "name": "void pc_tolower( char* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "370": {
+      "name": "strcmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "371": {
+      "name": "strcmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "373": {
+      "name": "-",
+      "dataEntry": true,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "374": {
+      "name": "DagnosticMode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Hardware.HTM"
+    },
+    "394": {
+      "name": "void InvertMem( void*memoryrange, int count );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "415": {
+      "name": "StorageMemory_Optimization",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_SMEM.HTM"
+    },
+    "425": {
+      "name": "GUI_ProgressBar",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "439": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "440": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "441": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "442": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "443": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "444": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "445": {
+      "name": "Get8x8BitmapPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "526": {
+      "name": "StorageMemory_GetFilePos",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_SMEM.HTM"
+    },
+    "566": {
+      "name": "RebootOS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "573": {
+      "name": "RTC_TriggerAlarm",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_RTC.HTM"
+    },
+    "574": {
+      "name": "RTC_SetDateTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_RTC.HTM"
+    },
+    "577": {
+      "name": "Keyboard_ClrBuffer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "578": {
+      "name": "Bkey_Set_RepeatTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "579": {
+      "name": "Bkey_Get_RepeatTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "580": {
+      "name": "Bkey_Set_RepeatTime_Default",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "581": {
+      "name": "Keyboard_EnableAutoRepeat",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "582": {
+      "name": "Keyboard_DisableAutoRepeat",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "583": {
+      "name": "Keyboard_GetKeyWait",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "584": {
+      "name": "Keyboard_PutKeycode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "585": {
+      "name": "Keyboard_GetKeyDownTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "586": {
+      "name": "Keyboard_IsAnyKeyDown",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "587": {
+      "name": "Keyboard_IsSpecialKeyDown",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "588": {
+      "name": "Keyboard_IsSpecialKeyDown",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "589": {
+      "name": "Keyboard_KeyDown",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "590": {
+      "name": "Keyboard_SecondaryInterruptHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "591": {
+      "name": "Keyboard_PutKeymatrixCode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "593": {
+      "name": "Keyboard_TimerHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "606": {
+      "name": "Keyboard_PrimaryInterruptHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "616": {
+      "name": "GetFKeyIconPointer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "644": {
+      "name": "BCD_GetNotANumberValue",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BCD.HTM"
+    },
+    "645": {
+      "name": "Serial_Open_57600",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "646": {
+      "name": "BCD_AnsToSerial",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BCD.HTM"
+    },
+    "653": {
+      "name": "Comm_Open",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "654": {
+      "name": "Comm_Close",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "655": {
+      "name": "Comm_WaitForAnyBuffer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "656": {
+      "name": "Comm_ReadOneByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "657": {
+      "name": "Comm_TransmitOneByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "658": {
+      "name": "Comm_WaitForAndReadNBytes",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "659": {
+      "name": "Comm_TransmitNBytes",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "660": {
+      "name": "Comm_ClearReceiveBuffer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "661": {
+      "name": "Comm_ClearTransmitBuffer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "662": {
+      "name": "Comm_IsValidPacketAvailable",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "664": {
+      "name": "Comm_IsOpen",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "665": {
+      "name": "Comm_GetCurrentSelector",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "673": {
+      "name": "HexToByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Converting.HTM"
+    },
+    "674": {
+      "name": "HexToWord",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Converting.HTM"
+    },
+    "675": {
+      "name": "ByteToHex",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Converting.HTM"
+    },
+    "676": {
+      "name": "WordToHex",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Converting.HTM"
+    },
+    "677": {
+      "name": "Comm_Padding_5C",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "678": {
+      "name": "Comm_ReversePadding_5C",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "679": {
+      "name": "AscHexToNibble",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Converting.HTM"
+    },
+    "680": {
+      "name": "NibbleToAscHex",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Converting.HTM"
+    },
+    "681": {
+      "name": "strlen",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "682": {
+      "name": "memcpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "683": {
+      "name": "Serial_Open2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "687": {
+      "name": "Comm_Spy0thByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "731": {
+      "name": "Comm_ProcessInPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "737": {
+      "name": "Comm_PrepareAckPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "738": {
+      "name": "Comm_PrepareErrorPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "739": {
+      "name": "Comm_PrepareTerminatePacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "740": {
+      "name": "Comm_PrepareRoleswapPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "741": {
+      "name": "Comm_PrepareCheckPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "742": {
+      "name": "Comm_PrepareCommandPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "743": {
+      "name": "Comm_PrepareDataPacket",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Communication.htm"
+    },
+    "750": {
+      "name": "System_GetOSVersion",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_System.HTM"
+    },
+    "862": {
+      "name": "memset_range",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "863": {
+      "name": "another memset",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "867": {
+      "name": "MCS_CreateDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "868": {
+      "name": "MCS_WriteItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "870": {
+      "name": "MCS_DeleteDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "871": {
+      "name": "MCS_DeleteItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "872": {
+      "name": "MCS_GetState",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "873": {
+      "name": "MCS_GetSystemDirectoryInfo",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "880": {
+      "name": "MCS_RenameItem (MoveItem)",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "881": {
+      "name": "MCS_OverwriteData",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "882": {
+      "name": "MCS_GetItemData",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "883": {
+      "name": "MCS_RenameDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "884": {
+      "name": "BMCSRenameVariable",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "885": {
+      "name": "MCS_SearchDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "886": {
+      "name": "MCS_SearchDirectoryItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "892": {
+      "name": "MCS_GetFirstDataPointerByDirno",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "893": {
+      "name": "MCS_GetDirectoryEntryByNumber",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "894": {
+      "name": "MCS_SearchItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "895": {
+      "name": "MCS_str8cpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "896": {
+      "name": "MCS_GetDirectoryEntryAddress",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "897": {
+      "name": "MCS_GetCurrentBottomAddress",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "899": {
+      "name": "MCS_GetCapa",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "914": {
+      "name": "MCS_GetMainMemoryStart",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCS.HTM"
+    },
+    "988": {
+      "name": "Setup_GetInfo( const unsigned char*, int, TSetupInfo* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1002": {
+      "name": "-",
+      "dataEntry": true,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "1005": {
+      "name": "Interrupt_SetOrClrStatusFlags",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_INTERRUPT.HTM"
+    },
+    "1012": {
+      "name": "PowerOff",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1013": {
+      "name": "ClearMainMemory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1014": {
+      "name": "SH7337_TMU_Stop",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Hardware.HTM"
+    },
+    "1015": {
+      "name": "SH7337_TMU_int_handler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Hardware.HTM"
+    },
+    "1018": {
+      "name": "Hmem_SetMMU",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1022": {
+      "name": "GetStackPtr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1023": {
+      "name": "MMU_FlushCache",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1028": {
+      "name": "GetPhysicalROMstart",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1029": {
+      "name": "GetPhysicalRAMstart",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1033": {
+      "name": "Serial_ResetAndDisable",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1034": {
+      "name": "Serial_GetInterruptHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1035": {
+      "name": "Serial_SetInterruptHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1036": {
+      "name": "Serial_ReadOneByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1037": {
+      "name": "Serial_ReadNBytes",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1038": {
+      "name": "Serial_BufferedTransmitOneByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1039": {
+      "name": "Serial_BufferedTransmitNBytes",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1040": {
+      "name": "Serial_DirectTransmitOneByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1041": {
+      "name": "Serial_GetReceivedBytesAvailable",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1042": {
+      "name": "Serial_GetFreeTransmitSpace",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1043": {
+      "name": "Serial_ClearReceiveBuffer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1044": {
+      "name": "Serial_ClearTransmitBuffer",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1048": {
+      "name": "Serial_Open",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1049": {
+      "name": "Serial_Close",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1051": {
+      "name": "Serial_CallReceiveIntErrorResetHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1052": {
+      "name": "Serial_CallReceiveIntHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1053": {
+      "name": "Serial_CallTransmitIntErrorResetHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1054": {
+      "name": "Serial_CallTransmitIntHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1056": {
+      "name": "OS_inner_Sleep",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Sleep.HTM"
+    },
+    "1058": {
+      "name": "Serial_SpyNthByte",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1059": {
+      "name": "Serial_GetStatus",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1061": {
+      "name": "Serial_IsOpen",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Serial.HTM"
+    },
+    "1065": {
+      "name": "Bfile_identify_device_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1068": {
+      "name": "Bfile_OpenFile_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1069": {
+      "name": "Bfile_CloseFile_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1070": {
+      "name": "Bfile_GetMediaFree_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1071": {
+      "name": "Bfile_GetFileSize_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1073": {
+      "name": "Bfile_SeekFile_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1074": {
+      "name": "Bfile_ReadFile_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1076": {
+      "name": "Bfile_CreateEntry_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1077": {
+      "name": "Bfile_WriteFile_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1080": {
+      "name": "Bfile_RenameEntry",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1081": {
+      "name": "Bfile_DeleteEntry",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1083": {
+      "name": "Bfile_FindFirst",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1084": {
+      "name": "Bfile_FindNext",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1085": {
+      "name": "Bfile_FindClose",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1102": {
+      "name": "memcpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1103": {
+      "name": "another memcmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1104": {
+      "name": "Bfile_GetFilenameLength",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1105": {
+      "name": "Bfile_Name_cmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1106": {
+      "name": "Bfile_Name_cpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1107": {
+      "name": "Bfile_Name_ncpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1110": {
+      "name": "Bfile_NameToStr_ncpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1111": {
+      "name": "Bfile_StrToName_ncpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BFile.htm"
+    },
+    "1122": {
+      "name": "GetAppName",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AppName.HTM"
+    },
+    "1123": {
+      "name": "SetAppName",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AppName.HTM"
+    },
+    "1124": {
+      "name": "CmpAppName",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AppName.HTM"
+    },
+    "1125": {
+      "name": "GetIntPtrContent",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "1127": {
+      "name": "LongToAscHex",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_LongToAscHex.HTM"
+    },
+    "1128": {
+      "name": "Check for SD-option",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1129": {
+      "name": "Battery_DisplayLowStatus",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Battery.HTM"
+    },
+    "1131": {
+      "name": "App_BuiltInCount",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "1142": {
+      "name": "Battery_IsLow",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Battery.HTM"
+    },
+    "1143": {
+      "name": "EnableGetkeyToMainFunctionReturn",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "1144": {
+      "name": "DisableGetkeyToMainFunctionReturn",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "1151": {
+      "name": "SetAutoPowerOffTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1152": {
+      "name": "GetAutoPowerOffTime",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1158": {
+      "name": "GetdatatablePtr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_datatable.HTM"
+    },
+    "1165": {
+      "name": "SetAutoPowerOffFlag",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1166": {
+      "name": "GetAutoPowerOffFlag",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1170": {
+      "name": "Battery_IsLow",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Battery.HTM"
+    },
+    "1172": {
+      "name": "CallbackAtQuitMainFunction",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1173": {
+      "name": "Battery_DisplayLowStatus",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Battery.HTM"
+    },
+    "1177": {
+      "name": "Heap_SetTopChunk",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Heap.HTM"
+    },
+    "1178": {
+      "name": "App_Start",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "1180": {
+      "name": "Battery_GetStatus",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Battery.HTM"
+    },
+    "1182": {
+      "name": "-",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1184": {
+      "name": "AUX_DisplayErrorMessage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "1197": {
+      "name": "USB_InterruptHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Comm.HTM"
+    },
+    "1198": {
+      "name": "USB_TimerHandler",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Comm.HTM"
+    },
+    "1200": {
+      "name": "AUX_DisplayFKeyIcons",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "1227": {
+      "name": "Keyboard_RemapFKeyCode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "1233": {
+      "name": "AUX_DisplayFKeyIcon",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "1244": {
+      "name": "Setup_GetEntry",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1245": {
+      "name": "Setup_SetEntry",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1246": {
+      "name": "Setup_GetEntryPtr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1247": {
+      "name": "Alpha_GetData",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AlphaMem.HTM"
+    },
+    "1248": {
+      "name": "Alpha_SetData",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AlphaMem.HTM"
+    },
+    "1249": {
+      "name": "Alpha_ClearAll",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AlphaMem.HTM"
+    },
+    "1254": {
+      "name": "HourGlass",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "1257": {
+      "name": "LocalizeStringID",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1269": {
+      "name": "int BCD_ToStrAsNumber1",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_NumberFormat.HTM"
+    },
+    "1270": {
+      "name": "int BCD_ToStrAsNumber2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_NumberFormat.HTM"
+    },
+    "1280": {
+      "name": "BCDToInternal",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_NumberFormat.HTM"
+    },
+    "1304": {
+      "name": "Setup_GetEntry_3E",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1305": {
+      "name": "Setup_GetEntry_40",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1306": {
+      "name": "Setup_SetEntry_3E",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1307": {
+      "name": "Setup_SetEntry_40",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "1329": {
+      "name": "MB_IsLead",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1331": {
+      "name": "MB_ElementCount",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1332": {
+      "name": "MB_ByteCount",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1334": {
+      "name": "MB_strcat",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1335": {
+      "name": "MB_strncat",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1336": {
+      "name": "MB_strcpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1340": {
+      "name": "MB_GetSecondElemPtr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1341": {
+      "name": "MB_GetElement",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1342": {
+      "name": "MB_CopyToHeap",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_mb.htm"
+    },
+    "1343": {
+      "name": "another memcmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1345": {
+      "name": "itoa",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1346": {
+      "name": "to_uppercase",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1347": {
+      "name": "to_lowercase",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1446": {
+      "name": "BCD_SetAsInt",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BCD.HTM"
+    },
+    "1605": {
+      "name": "CalculateExpression",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BCD.HTM"
+    },
+    "1610": {
+      "name": "CalculateExpression0",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_BCD.HTM"
+    },
+    "1618": {
+      "name": "NextOpcode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_PRGM.HTM"
+    },
+    "1702": {
+      "name": "IsEndOfLine",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_PRGM.HTM"
+    },
+    "1732": {
+      "name": "Keyboard_PRGM_GetKey",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "1748": {
+      "name": "Alpha_GetData2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AlphaMem.HTM"
+    },
+    "1811": {
+      "name": "Print_ClearLine_OS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "1891": {
+      "name": "Bdisp_DrawRectangle",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "2044": {
+      "name": "Expressions_OpcodeToStr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Expressions.HTM"
+    },
+    "2052": {
+      "name": "CLIP_Store",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2055": {
+      "name": "locate",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "2056": {
+      "name": "Print",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2057": {
+      "name": "PrintRev",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2058": {
+      "name": "PrintC",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2059": {
+      "name": "PrintRevC",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2060": {
+      "name": "PrintLine",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2061": {
+      "name": "PrintRLine",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2065": {
+      "name": "Cursor_SetFlashOn",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "2066": {
+      "name": "Cursor_SetFlashOff",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Cursor.HTM"
+    },
+    "2067": {
+      "name": "SaveDisp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2068": {
+      "name": "RestoreDisp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2089": {
+      "name": "MCS_CreateDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2090": {
+      "name": "MCS_PutInternalItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2091": {
+      "name": "MCSPutVar2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2096": {
+      "name": "MCSOvwDat2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2098": {
+      "name": "MCS_OverwriteOpenItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2099": {
+      "name": "MCS_ClearInternalDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2100": {
+      "name": "MCS_ClearDirectory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2101": {
+      "name": "MCS_DeleteInternalItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2102": {
+      "name": "MCSDelVar2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2106": {
+      "name": "MCS_GotoInternalItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2107": {
+      "name": "MCS_OpenMainMemoryItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2108": {
+      "name": "MCS_GotoHandleNeighbour",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2109": {
+      "name": "MCS_CheckOpenedItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2110": {
+      "name": "MCS_GetOpenItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2111": {
+      "name": "MCS_OpenInternalDirectoryItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2112": {
+      "name": "MCSGetDlen2",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2113": {
+      "name": "MCSGetData1",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2115": {
+      "name": "MCS_MapMCS_Result",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2116": {
+      "name": "MCSGetCapa",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2125": {
+      "name": "MCS_OpenAlphaMemItem",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2130": {
+      "name": "MCS_DirtypeToItemtype",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2131": {
+      "name": "MCS_ItemtypeToDirtype",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2147": {
+      "name": "MCS_DirtypeToName",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2150": {
+      "name": "MCS_MapError",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2153": {
+      "name": "Alpha_ClearAllAndAns",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AlphaMem.HTM"
+    },
+    "2159": {
+      "name": "MCS_DeleteDirectoryItems",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_MCShandles.HTM"
+    },
+    "2267": {
+      "name": "EditExpression",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Expressions.HTM"
+    },
+    "2268": {
+      "name": "EditValue",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Expressions.HTM"
+    },
+    "2278": {
+      "name": "void EditMBStringCtrl( unsigned char*, int xposmax, void*, void*, void*, int, int );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2282": {
+      "name": "void DisplayMBString( unsigned char*, int, int xpos, intx, int y );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2284": {
+      "name": "void EditMBStringChar( unsigned char*, int xposmax, int xpos, int char );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2295": {
+      "name": "void DisplayMBString2( int, unsigned char*, int, int xpos, int zero, int x, int y, int, int, int );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2302": {
+      "name": "void PopupWin( int nlines )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Bdisp.HTM"
+    },
+    "2305": {
+      "name": "AUX_DisplayMessageBox",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "2309": {
+      "name": "AUX_DisplayErrorMessage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "2315": {
+      "name": "SetShiftAlphaState",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "2316": {
+      "name": "GetInsOverwriteState",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "2317": {
+      "name": "SetInsOverwriteState",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "2318": {
+      "name": "ClrShiftAlphaState",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "2319": {
+      "name": "GetKey",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "2320": {
+      "name": "PutKey",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "2331": {
+      "name": "GetShiftAlphaState",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Setup.HTM"
+    },
+    "2340": {
+      "name": "TestMode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Hardware.HTM"
+    },
+    "2388": {
+      "name": "AUX_DisplayErrorMessage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "2437": {
+      "name": "App_CONICS",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2456": {
+      "name": "App_DYNA",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2477": {
+      "name": "PrintXY",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2527": {
+      "name": "App_EACT",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2529": {
+      "name": "App_Equation",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2530": {
+      "name": "App_EQUA",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2549": {
+      "name": "App_Program",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2560": {
+      "name": "App_FINANCE",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2591": {
+      "name": "Keyboard_RemapFKeyCode",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Keyboard.HTM"
+    },
+    "2613": {
+      "name": "AUX_DisplayMessage",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "2632": {
+      "name": "App_GRAPH_TABLE",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2634": {
+      "name": "App_LINK",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2666": {
+      "name": "App_Optimization",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2667": {
+      "name": "App_Memory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2677": {
+      "name": "App_RECUR",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2711": {
+      "name": "App_RUN_MAT_EXE",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2734": {
+      "name": "App_RUN_MAT",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2758": {
+      "name": "App_STAT",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2760": {
+      "name": "App_SYSTEM",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_App.HTM"
+    },
+    "2764": {
+      "name": "free",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2765": {
+      "name": "malloc",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2766": {
+      "name": "memcmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2767": {
+      "name": "memcpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2768": {
+      "name": "memset",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2772": {
+      "name": "strcat",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2773": {
+      "name": "strcmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2774": {
+      "name": "strlen",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2775": {
+      "name": "strncat",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2776": {
+      "name": "strncmp",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2777": {
+      "name": "strncpy",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2778": {
+      "name": "strrchr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "2792": {
+      "name": "Catalog-dialog",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Expressions.HTM"
+    },
+    "3151": {
+      "name": "PrintMiniSd",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3239": {
+      "name": "char OpcodeType( char* );",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_PRGM.htm"
+    },
+    "3248": {
+      "name": "Send(/Send38k",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_PRGM.HTM"
+    },
+    "3249": {
+      "name": "Receive(/Receive38k",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_PRGM.HTM"
+    },
+    "3250": {
+      "name": "Open/CloseComPort38k",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_PRGM.HTM"
+    },
+    "3268": {
+      "name": "Number Input Dialog",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "3269": {
+      "name": "String Input Dialog",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "3275": {
+      "name": "int GetRAMSize( void )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3280": {
+      "name": "another diagnostic dialog",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3428": {
+      "name": "int InputDateDialog( int*, int*, int*, int* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "3429": {
+      "name": "int InputMonthDialog( int*, int* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "3430": {
+      "name": "int InputDayDialog( int*, int* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "3431": {
+      "name": "int InputYearDialog( int*, int* )",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_AUX.htm"
+    },
+    "3499": {
+      "name": "StoreExpressionToGraphFuncMemory",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_Expressions.HTM"
+    },
+    "3691": {
+      "name": "calloc",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3692": {
+      "name": "memmove",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3693": {
+      "name": "realloc",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3694": {
+      "name": "strchr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    },
+    "3695": {
+      "name": "strstr",
+      "dataEntry": false,
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+    }
+  }
+}

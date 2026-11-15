@@ -1,0 +1,534 @@
+--- upstream/os/syscalls.c
++++ patched/os/syscalls.c
+@@ -1,3 +1,7 @@
++#include "debug_bridge.h"
++#include "hardware_model.h"
++#include "syscall_trace.h"
++#include <stdlib.h>
+ /*
+  * High-level emulation of the Casio OS: instead of running the OS, we catch
+  * jumps to SYSCALL_ENTRY and implement each syscall on the host.
+@@ -73,106 +77,38 @@
+     return 0;
+ }
+ 
+-/*
+- * The OS heap (sys_malloc, sys_free, sys_realloc): first fit over blocks
+- * laid out back to back in the model's heap area. Each block starts with
+- * an 8-byte header in emulated memory: its total size, and 1 if in use.
+- * Free neighbours are merged when the heap is walked.
+- */
+-#define BLOCK_HEADER 8
+-#define BLOCK_MIN    16
+-
+-static uint32_t heap_end(Emu *emu)
+-{
+-    return emu->layout->heap_base + emu->layout->heap_size;
+-}
+-
+-static void heap_init(Emu *emu)
+-{
+-    if (emu->heap_ready)
+-        return;
+-    mem_write32(&emu->mem, emu->layout->heap_base, emu->layout->heap_size);
+-    mem_write32(&emu->mem, emu->layout->heap_base + 4, 0);
+-    emu->heap_ready = true;
+-}
+-
+-static uint32_t heap_alloc(Emu *emu, uint32_t request)
+-{
+-    Memory *mem = &emu->mem;
+-    heap_init(emu);
+-    uint32_t need = ((request + 7) & ~7u) + BLOCK_HEADER;
+-    for (uint32_t b = emu->layout->heap_base; b < heap_end(emu);) {
+-        uint32_t size = mem_read32(mem, b), used = mem_read32(mem, b + 4);
+-        if (size < BLOCK_HEADER || b + size > heap_end(emu))
+-            return 0; /* the add-in overwrote a header */
+-        if (!used) {
+-            /* merge the free blocks that follow */
+-            uint32_t next = b + size;
+-            while (next < heap_end(emu) && !mem_read32(mem, next + 4)) {
+-                size += mem_read32(mem, next);
+-                next = b + size;
+-            }
+-            mem_write32(mem, b, size);
+-            if (size >= need) {
+-                if (size - need >= BLOCK_MIN) { /* split */
+-                    mem_write32(mem, b + need, size - need);
+-                    mem_write32(mem, b + need + 4, 0);
+-                    size = need;
+-                }
+-                mem_write32(mem, b, size);
+-                mem_write32(mem, b + 4, 1);
+-                return b + BLOCK_HEADER;
+-            }
+-        }
+-        b += size;
+-    }
+-    return 0;
+-}
+-
+-/* The block of a pointer we returned, or 0. */
+-static uint32_t heap_block(Emu *emu, uint32_t p)
+-{
+-    if (p < emu->layout->heap_base + BLOCK_HEADER || p >= heap_end(emu))
+-        return 0;
+-    return p - BLOCK_HEADER;
+-}
+-
+-static SC(sc_malloc)
+-{
+-    return heap_alloc(emu, a[0]);
+-}
+-
+-static SC(sc_free)
+-{
+-    uint32_t b = heap_block(emu, a[0]);
+-    if (b)
+-        mem_write32(&emu->mem, b + 4, 0);
+-    return 0;
+-}
+-
+-/* sys_realloc(p, size): a new block with the old contents. */
+-static SC(sc_realloc)
+-{
+-    uint32_t old = heap_block(emu, a[0]);
+-    if (!a[0])
+-        return heap_alloc(emu, a[1]);
+-    if (!old)
+-        return 0;
+-    uint32_t p = heap_alloc(emu, a[1]);
+-    if (!p)
+-        return 0; /* the old block stays valid */
+-    uint32_t old_size = mem_read32(&emu->mem, old) - BLOCK_HEADER;
+-    uint32_t n = old_size < a[1] ? old_size : a[1];
+-    uint8_t *d = mem_ptr(&emu->mem, p, n), *s = mem_ptr(&emu->mem, a[0], n);
+-    if (d && s)
+-        memmove(d, s, n);
+-    mem_write32(&emu->mem, old + 4, 0);
+-    return p;
+-}
++#include "heap_compat.h"
+ 
+ /* Timer_Install(id, handler, ms): OS timers would need their callbacks
+  * run like interrupts; report that none is free. (gint's return-to-menu
+  * uses one, and simply comes back when it can't get it.) */
++static SC(sc_quit_handler)
++{
++    probe_hw_register_quit(&emu->cpu, a[0]);
++    return 0;
++}
++
++static SC(sc_fx_cursor_position)
++{
++    int x = (int8_t)a[0], y = (int8_t)a[1];
++    if (x < 0 || x > 20 || y < 0 || y > 7) return 0;
++    emu->cursor_x = x + 1;
++    emu->cursor_y = y + 1;
++    return 1;
++}
++
++/* Only the fx keyboard-mode entry is modeled. Do not invent other settings. */
++static SC(sc_fx_setup_get)
++{
++    if (a[0] != 0x14) {
++        cpu_report(&emu->cpu, "unsupported Setup_GetEntry index 0x%X", a[0]);
++        emu->cpu.state = CPU_ERROR;
++        return 0;
++    }
++    return (emu->key_shift ? 1 : 0) |
++           (emu->key_alpha == ALPHA_ONCE ? 4 : emu->key_alpha == ALPHA_LOCK ? 0x84 : 0);
++}
++
+ static SC(sc_get_setup_setting)
+ {
+     return emu->setup[a[0] & 0xFF];
+@@ -184,32 +120,7 @@
+     return 0;
+ }
+ 
+-/* memcpy(dst, src, n) and memset(p, c, n): the OS's own C library. */
+-static SC(sc_memcpy)
+-{
+-    Memory *mem = &emu->mem;
+-    uint8_t *d = mem_ptr(mem, a[0], a[2]), *s = mem_ptr(mem, a[1], a[2]);
+-    if (d && s && mem->wr[a[0] >> PAGE_SHIFT]) {
+-        memmove(d, s, a[2]);
+-    } else {
+-        for (uint32_t i = 0; i < a[2]; i++)
+-            mem_write8(mem, a[0] + i, mem_read8(mem, a[1] + i));
+-    }
+-    return a[0];
+-}
+-
+-static SC(sc_memset)
+-{
+-    Memory *mem = &emu->mem;
+-    uint8_t *d = mem_ptr(mem, a[0], a[2]);
+-    if (d && mem->wr[a[0] >> PAGE_SHIFT]) {
+-        memset(d, (int)(a[1] & 0xFF), a[2]);
+-    } else {
+-        for (uint32_t i = 0; i < a[2]; i++)
+-            mem_write8(mem, a[0] + i, (uint8_t)a[1]);
+-    }
+-    return a[0];
+-}
++#include "memory_compat.h"
+ 
+ static SC(sc_strlen)
+ {
+@@ -222,7 +133,7 @@
+ /* memcmp(p1, p2, n): like C's, the difference of the first differing bytes. */
+ static SC(sc_memcmp)
+ {
+-    for (uint32_t i = 0; i < a[2]; i++) {
++    for (uint32_t i = 0; i < a[2] && !emu->mem.fault && emu->cpu.state == CPU_RUNNING; i++) {
+         int d = mem_read8(&emu->mem, a[0] + i) - mem_read8(&emu->mem, a[1] + i);
+         if (d)
+             return (uint32_t)d;
+@@ -284,7 +195,8 @@
+ /* strncpy(dst, src, n): pads with NULs up to n. */
+ static SC(sc_strncpy)
+ {
+-    for (uint32_t i = str_copy(emu, a[0], a[1], a[2]); i < a[2]; i++)
++    if(!hle_span(emu,a[0],a[2],true))return 0;
++    for (uint32_t i = str_copy(emu, a[0], a[1], a[2]); i < a[2] && !emu->mem.fault && emu->cpu.state == CPU_RUNNING; i++)
+         mem_write8(&emu->mem, a[0] + i, 0);
+     return a[0];
+ }
+@@ -401,6 +313,8 @@
+         mem_write8(&emu->mem, a[1] + (uint32_t)i, (uint8_t)buf[i]);
+     return a[1]; /* add-ins use the result as the string */
+ }
++
++#include "fx_syscalls.h"
+ 
+ /* The serial port (3-pin link cable): nothing is plugged in, so nothing
+  * ever arrives. What is sent goes out of the emulated TX pin (sh7305.c),
+@@ -749,6 +663,41 @@
+  * Simon Lothar's list (see syscalls_fx.c). The shared functions take the
+  * same arguments as their fx-CG counterparts above. */
+ static const Syscall SYSCALLS_FX[] = {
++    {0x01E7, "InternalContainer_CloseSlot", sc_fx_close_container_slot},
++    {0x0218, "InternalSearch_CloseSlot", sc_fx_close_search_slot},
++    {0x015F, "atoi", sc_fx_atoi},
++    {0x0161, "LongToAscHex", sc_fx_hex},
++    {0x0162, "pc_toupper", sc_fx_upper},
++    {0x0163, "pc_tolower", sc_fx_lower},
++    {0x0172, "strcasecmp", sc_fx_casecmp},
++    {0x0173, "strcasecmp", sc_fx_casecmp},
++    {0x018A, "InvertMem", sc_fx_invert},
++    {0x02A1, "HexToByte", sc_fx_hex_byte},
++    {0x02A2, "HexToWord", sc_fx_hex_word},
++    {0x02A3, "ByteToHex", sc_byte_to_hex},
++    {0x02A4, "WordToHex", sc_word_to_hex},
++    {0x02A7, "AscHexToNibble", sc_fx_hex_nibble},
++    {0x02A8, "NibbleToAscHex", sc_nibble_to_hex},
++    {0x02A9, "strlen", sc_strlen},
++    {0x02EE, "System_GetOSVersion", sc_fx_system_os_version},
++    {0x0429, "Bfile_identify_device", sc_fx_device},
++    {0x0457, "Bfile_StrToName_ncpy", sc_fx_str_to_name},
++    {0x0467, "LongToAscHex", sc_fx_hex},
++    {0x0531, "MB_IsLead", sc_fx_mb_lead},
++    {0x0533, "MB_ElementCount", sc_fx_mb_count},
++    {0x0534, "MB_ByteCount", sc_strlen},
++    {0x0536, "MB_strcat", sc_strcat},
++    {0x0537, "MB_strncat", sc_fx_mb_ncat},
++    {0x0538, "MB_strcpy", sc_fx_strcpy},
++    {0x053C, "MB_GetSecondElemPtr", sc_fx_mb_next},
++    {0x053D, "MB_GetElement", sc_fx_mb_get},
++    {0x053E, "MB_CopyToHeap", sc_fx_mb_dup},
++    {0x0541, "itoa", sc_itoa},
++    {0x080E, "Cursor_GetFlashStyle", sc_fx_cursor_flash},
++    {0x080F, "Cursor_GetCurrentPosition", sc_fx_cursor_position_state},
++    {0x0E6E, "strchr", sc_fx_strchr},
++    {0x0E6F, "strstr", sc_fx_strstr},
++
+     {0x0013, "GlibAddinAplExecutionCheck", sc_fx_glib_execution_check},
+     {0x0014, "GlibGetAddinLibInf", sc_fx_glib_lib_info},
+     {0x0015, "GlibGetOSVersionInfo", sc_fx_os_version},
+@@ -766,9 +715,10 @@
+     {0x011A, "Timer_Start", sc_timer_start},
+     {0x011B, "Timer_Stop", sc_timer_stop},
+     {0x0135, "GetVRAMAddress", sc_get_vram_address}, /* the OS's 1 kB monochrome VRAM */
+-    {0x0139, "Cursor_SetFlashStyle", sc_nothing}, /* we don't draw the text cursor */
+-    {0x013A, "Cursor_SetFlashMode", sc_nothing},
+-    {0x013B, "Cursor_GetSettings", sc_fx_cursor_settings},
++    {0x0138, "Cursor_SetPosition", sc_fx_cursor_position},
++    {0x0139, "Cursor_SetFlashStyle", sc_fx_cursor_style}, /* we don't draw the text cursor */
++    {0x013A, "Cursor_SetFlashMode", sc_fx_cursor_mode},
++    {0x013B, "Cursor_GetSettings", sc_fx_cursor_state},
+     {0x0142, "Bdisp_AllClr_DD", sc_fx_allclr_dd},
+     {0x0143, "Bdisp_AllClr_VRAM", sc_fx_allclr_vram},
+     {0x0144, "Bdisp_AllClr_DDVRAM", sc_fx_allclr_ddvram},
+@@ -784,9 +734,9 @@
+     {0x0150, "PrintXY", sc_fx_print_xy},
+     {0x0156, "PopUpWin", sc_fx_popup_at},
+     {0x015D, "PrintCR", sc_fx_print_cr},
+-    {0x0236, "Reset", sc_restart},
++    {0x0236, "Reset", sc_fx_reset},
+     {0x023E, "RTC_SetDateTime", sc_rtc_set_date_time},
+-    {0x0241, "Keyboard_ClrBuffer", sc_nothing},
++    {0x0241, "Keyboard_ClrBuffer", sc_clear_key_buffer},
+     {0x0242, "Bkey_Set_RepeatTime", sc_nothing},  /* no key repeat here */
+     {0x0244, "Bkey_Set_RepeatTime_Default", sc_nothing},
+     {0x0245, "Keyboard_EnableAutoRepeat", sc_nothing},
+@@ -815,23 +765,24 @@
+     {0x0420, "OS_inner_Sleep", sc_wait_ms},
+     {0x0422, "Serial_SpyNthByte", sc_serial_read_one},
+     {0x0425, "Serial_IsOpen", sc_serial_is_open},
+-    {0x042C, "Bfile_OpenFile", sc_bfile_open},
+-    {0x042D, "Bfile_CloseFile", sc_bfile_close},
++    {0x042C, "Bfile_OpenFile", sc_fx_bfile_open},
++    {0x042D, "Bfile_CloseFile", sc_fx_bfile_close},
+     {0x042E, "Bfile_GetMediaFree", sc_bfile_media_free},
+-    {0x042F, "Bfile_GetFileSize", sc_bfile_size},
+-    {0x0431, "Bfile_SeekFile", sc_bfile_seek},
+-    {0x0432, "Bfile_ReadFile", sc_bfile_read},
++    {0x042F, "Bfile_GetFileSize", sc_fx_bfile_size},
++    {0x0431, "Bfile_SeekFile", sc_fx_bfile_seek},
++    {0x0432, "Bfile_ReadFile", sc_fx_bfile_read},
+     {0x0434, "Bfile_CreateEntry", sc_bfile_create},
+-    {0x0435, "Bfile_WriteFile", sc_bfile_write},
++    {0x0435, "Bfile_WriteFile", sc_fx_bfile_write},
+     {0x0439, "Bfile_DeleteEntry", sc_bfile_delete},
+     {0x043B, "Bfile_FindFirst", sc_bfile_find_first},
+     {0x043C, "Bfile_FindNext", sc_bfile_find_next},
+     {0x043D, "Bfile_FindClose", sc_bfile_find_close},
+-    {0x0450, "Bfile_GetFilenameLength", sc_bfile_name_length},
+-    {0x0456, "Bfile_NameToStr_ncpy", sc_bfile_name_to_str},
++    {0x0450, "Bfile_GetFilenameLength", sc_fx_name_length},
++    {0x0456, "Bfile_NameToStr_ncpy", sc_fx_name_to_str},
+     {0x0462, "GetAppName", sc_get_app_name},
+     {0x0486, "GetDataTablePtr", sc_fx_data_table},
+-    {0x0494, "SetQuitHandler", sc_nothing},    /* no OS menu to quit through */
++    {0x04DC, "Setup_GetEntry", sc_fx_setup_get},
++    {0x0494, "SetQuitHandler", sc_quit_handler},    /* no OS menu to quit through */
+     {0x06C4, "Keyboard_PRGM_GetKey", sc_prgm_get_key_os}, /* same codes as on the fx-CG */
+     {0x0807, "locate", sc_locate},
+     {0x0808, "Print", sc_fx_print},
+@@ -840,7 +791,8 @@
+     {0x080B, "PrintRevC", sc_fx_print_rev_c},
+     {0x080C, "PrintLine", sc_fx_print_line},
+     {0x080D, "PrintRLine", sc_fx_print_rline},
+-    {0x0811, "Cursor_SetFlashOn", sc_nothing},
++    {0x0811, "Cursor_SetFlashOn", sc_fx_cursor_on},
++    {0x0812, "Cursor_SetFlashOff", sc_fx_cursor_off}, /* cursor is not rendered */
+     {0x0813, "SaveDisp", sc_fx_save_disp},
+     {0x0814, "RestoreDisp", sc_fx_restore_disp},
+     {0x0829, "MCS_CreateDirectory", sc_mcs_create_dir},
+@@ -868,6 +820,8 @@
+     {0x0AD9, "strncpy", sc_strncpy},
+     {0x0ADA, "strrchr", sc_strrchr},
+     {0x0C4F, "PrintMini", sc_fx_print_mini},
++    {0x0E6B, "calloc", sc_calloc},
++    {0x0E6C, "memmove", sc_memcpy},
+     {0x0E6D, "realloc", sc_realloc},
+     {0x1032, "Keyboard_KeycodeTable", sc_fx_keycode_table},
+ };
+@@ -905,19 +859,30 @@
+             printf("%9.3f ms  syscall %04X %-24s (%08X, %08X, %08X, %08X)\n",
+                    (double)cpu->instructions * 1000 / sh7305_iphi_hz(&emu->hw), number, table[i].name,
+                    args[0], args[1], args[2], args[3]);
++        uint64_t event_id = probe_trace_enter(emu, number, args, table[i].name,
++            table[i].fn == sc_nothing ? "stub" : fx && fx_partial_syscall(number) ? "partial" : "implemented");
++        if ((table[i].fn == sc_nothing || (fx && fx_partial_syscall(number))) && probe_trace_strict()) {
++            cpu_report(cpu, "stub syscall 0x%04X %s rejected by strict mode", number, table[i].name);
++            cpu->state = CPU_ERROR;
++            probe_trace_leave(emu, event_id, 0, false);
++            return;
++        }
+         sc_spend(emu, SYSCALL_CYCLES);
+         cpu->r[0] = table[i].fn(emu, args);
+-        cpu->pc = cpu->pr;
++        if(cpu->state == CPU_RUNNING) cpu->pc = cpu->pr; /* preserve fault PC */
+         if (emu->mem.fault) {
+             cpu_report(cpu, "syscall %04X %s: bad address 0x%08X", number, table[i].name,
+                     emu->mem.fault_addr);
+             cpu->state = CPU_ERROR;
+         }
++        probe_trace_leave(emu, event_id, cpu->r[0], cpu->state != CPU_ERROR);
+         return;
+     }
++    uint64_t event_id = probe_trace_enter(emu, number, args, "unknown", "missing");
+     cpu_report(cpu, "unimplemented %ssyscall 0x%04X (r4=%08X r5=%08X r6=%08X r7=%08X), called from 0x%08X",
+             fx ? "fx-9860G " : "", number, args[0], args[1], args[2], args[3], cpu->pr);
+     cpu->state = CPU_ERROR;
++    probe_trace_leave(emu, event_id, 0, false);
+ }
+ 
+ void syscalls_install(Emu *emu)
+--- upstream/os/syscalls_keys.c
++++ patched/os/syscalls_keys.c
+@@ -1,3 +1,4 @@
++#include "debug_bridge.h"
+ /*
+  * HLE syscalls: keyboard and line editing.
+  *
+@@ -146,7 +147,7 @@
+         if (key == -2)
+             return injected;
+         if (key < 0) {
+-            emu->cpu.state = CPU_EXITED;
++            if(emu->cpu.state == CPU_RUNNING) emu->cpu.state = CPU_EXITED;
+             return -1;
+         }
+         const KeyInfo *k = &KEYS[key];
+@@ -177,8 +178,10 @@
+         } else if (alpha != ALPHA_OFF && k->alpha) {
+             code = k->alpha;
+         }
+-        if (menu_dropped(emu, code))
++        if (menu_dropped(emu, code)) {
++            if(probe_os_menu(&emu->cpu)) return -1;
+             continue;
++        }
+         return code;
+     }
+ }
+@@ -200,6 +203,7 @@
+ {
+     Memory *mem = &emu->mem;
+     uint32_t type = a[2];
++wait_again: ;
+     int key;
+     int ignored = 0;
+     key = -1;
+@@ -221,11 +225,15 @@
+     } else {
+         key = next_input(emu, false, &ignored);
+         if (key < 0) {
+-            emu->cpu.state = CPU_EXITED;
++            if(emu->cpu.state == CPU_RUNNING) emu->cpu.state = CPU_EXITED;
+             return 0;
+         }
+     }
+     int col, row;
++    if (KEYS[key].getkey == KEY_CTRL_MENU && !a[4]) {
++        if(probe_os_menu(&emu->cpu)) return 0;
++        goto wait_again;
++    }
+     os_matrix(key, &col, &row);
+     mem_write32(mem, a[0], (uint32_t)col);
+     mem_write32(mem, a[1], (uint32_t)row);
+@@ -421,3 +429,12 @@
+ SC(sc_get_menu_return) { (void)a; return !emu->menu_return_off; }
+ SC(sc_enable_menu_return) { (void)a; emu->menu_return_off = false; return 0; }
+ SC(sc_disable_menu_return) { (void)a; emu->menu_return_off = true; return 0; }
++
++/* Empty buffered events without releasing keys that are physically held. */
++SC(sc_clear_key_buffer)
++{
++    (void)a;
++    emu->inject_count = 0;
++    probe_clear_key_buffer();
++    return 0;
++}
+--- upstream/os/syscalls_time.c
++++ patched/os/syscalls_time.c
+@@ -33,6 +33,7 @@
+ 
+ uint64_t timers_next_due(const Emu *emu)
+ {
++    if(emu->in_timer || (emu->cpu.sr & (SR_IMASK|SR_BL))) return UINT64_MAX;
+     uint64_t due = UINT64_MAX;
+     for (int i = 1; i <= TIMER_COUNT; i++)
+         if (emu->timers[i].running && emu->timers[i].next < due)
+@@ -42,7 +43,7 @@
+ 
+ void timers_fire_due(Emu *emu)
+ {
+-    if (emu->in_timer || emu->cpu.state != CPU_RUNNING)
++    if (emu->in_timer || emu->cpu.state != CPU_RUNNING || (emu->cpu.sr & (SR_IMASK|SR_BL)))
+         return;
+     uint64_t now = emu->cpu.instructions;
+     for (int i = 1; i <= TIMER_COUNT; i++) {
+@@ -70,7 +71,7 @@
+ void time_advance(Emu *emu, uint64_t cycles)
+ {
+     uint64_t end = emu->cpu.instructions + cycles;
+-    while (emu->cpu.state == CPU_RUNNING && !emu->in_timer) {
++    while (emu->cpu.state == CPU_RUNNING && !emu->in_timer && !(emu->cpu.sr & (SR_IMASK|SR_BL))) {
+         uint64_t due = timers_next_due(emu);
+         if (due > end)
+             break;
+--- upstream/os/syscalls_fx.c
++++ patched/os/syscalls_fx.c
+@@ -110,7 +110,7 @@
+ SC(sc_fx_os_version)
+ {
+     const char *v = emu->layout->os_version ? emu->layout->os_version : "02.05.2201";
+-    int major = (v[0] - '0') * 10 + (v[1] - '0'), minor = (v[3] - '0') * 10 + (v[4] - '0');
++    int major = (v[0] - '0') * 16 + (v[1] - '0'), minor = (v[3] - '0') * 16 + (v[4] - '0');
+     unsigned local = (unsigned)((v[6] - '0') << 12 | (v[7] - '0') << 8 | (v[8] - '0') << 4 | (v[9] - '0'));
+     if (a[0])
+         mem_write8(&emu->mem, a[0], (uint8_t)major);
+--- upstream/os/syscalls_bfile.c
++++ patched/os/syscalls_bfile.c
+@@ -1,3 +1,4 @@
++#include "hardware_model.h"
+ /*
+  * HLE syscalls: the storage memory file system (Bfile_*), where add-ins keep
+  * save files. Paths like \\fls0\GAME.sav (16-bit characters) become host
+@@ -76,46 +77,7 @@
+ /* Copies an opened file into the flash (ROM), 4 kB-aligned like the file
+  * system's clusters, unless the same version is already there. Add-ins like
+  * CGDoom find a file's data by searching flash for its pages. */
+-static int copy_to_flash(Emu *emu, const char *path, FILE *f)
+-{
+-    struct stat st;
+-    if (fstat(fileno(f), &st) != 0)
+-        return -1;
+-    int i;
+-    for (i = 0; i < emu->flash_file_count; i++)
+-        if (!strcmp(emu->flash_files[i].path, path))
+-            break;
+-    if (i < emu->flash_file_count && emu->flash_files[i].size == (uint32_t)st.st_size &&
+-        emu->flash_files[i].mtime == (int64_t)st.st_mtime)
+-        return i; /* unchanged */
+-    uint32_t off = (emu->flash_next + 0xFFF) & ~0xFFFu;
+-    bool reuse = i < emu->flash_file_count &&
+-                 (uint64_t)st.st_size <= ((emu->flash_files[i].size + 0xFFFu) & ~0xFFFu);
+-    if (reuse) /* changed but still fits: same place */
+-        off = emu->flash_files[i].offset;
+-    else if (off + (uint64_t)st.st_size + 0x1000 > ADDIN_PHYS) /* no room before the add-in */
+-        return -1;
+-    if (i == emu->flash_file_count) {
+-        if (i == (int)(sizeof emu->flash_files / sizeof emu->flash_files[0]))
+-            return -1;
+-        emu->flash_file_count++;
+-    }
+-    long pos = ftell(f);
+-    fseek(f, 0, SEEK_SET);
+-    size_t n = fread(emu->rom + off, 1, (size_t)st.st_size, f);
+-    fseek(f, pos, SEEK_SET);
+-    /* The rest of the last cluster reads as zeros, like Bfile_ReadFile_OS
+-     * past the end of the file. */
+-    uint32_t end = (off + (uint32_t)n + 0xFFF) & ~0xFFFu;
+-    memset(emu->rom + off + n, 0, end - off - n);
+-    snprintf(emu->flash_files[i].path, sizeof emu->flash_files[i].path, "%s", path);
+-    emu->flash_files[i].offset = off;
+-    emu->flash_files[i].size = (uint32_t)n;
+-    emu->flash_files[i].mtime = (int64_t)st.st_mtime;
+-    if (!reuse)
+-        emu->flash_next = end;
+-    return i;
+-}
++#include "file_map_compat.h"
+ 
+ /* Marks the flash copy of a file out of date, so the next open copies it
+  * again (size and mtime alone miss changes within the same second). */
+@@ -216,6 +178,7 @@
+     fflush(f);
+     if (emu->file_flash[a[0]] >= 0)
+         emu->flash_files[emu->file_flash[a[0]]].mtime = INT64_MIN;
++    if(n)probe_hw_file_changed(emu);
+     return n;
+ }
+ 
+@@ -565,3 +528,5 @@
+     find_free(emu, (int)a[0]);
+     return 0;
+ }
++
++#include "file_address_compat.h"

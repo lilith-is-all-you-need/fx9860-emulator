@@ -1,0 +1,250 @@
+{
+  "date": "2026-11-15",
+  "emulatorSha256": "e85bdaf1554ae2d861010655542d6bb463dc179fbb1fdcb6a6875200f812f483",
+  "upstreamCommit": "63e325708e9eea53eb4769b9c057082614ebd919",
+  "loaderSha256": "8845cf40957378bb4cb698e5d7839ca104d1b37498ae48ac90d037fa18f41646",
+  "hardwareValidated": false,
+  "targetMemoryInjected": false,
+  "faultPolicy": "reboot",
+  "tests": {
+    "cpu": "passed",
+    "runtimeGroups": 13,
+    "hardwareGroups": 15,
+    "fxSyscallGroups": 10,
+    "recoveryGroups": 12,
+    "protocolChecks": 55,
+    "profileGroups": 8,
+    "realWindowsGdb": "passed; mutable fixture uses uncached P2 RAM"
+  },
+  "coverage": {
+    "slotsAudited": 4147,
+    "documentedEntries": 404,
+    "dispatchEntries": 157,
+    "counts": {
+      "data-entry-unimplemented": 2,
+      "documented-unimplemented": 248,
+      "hle-handler": 144,
+      "partial": 7,
+      "stub": 6,
+      "undocumented": 3740
+    }
+  },
+  "caseCount": 28,
+  "cases": [
+    {
+      "case": "direct-khicas",
+      "state": "running",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "loader-khicas",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "blocked": true,
+      "playState": "running"
+    },
+    {
+      "case": "direct-wolf",
+      "state": "running",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "loader-wolf",
+      "state": "running",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "direct-fruit",
+      "state": "running",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "loader-fruit",
+      "state": "running",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "direct-mines",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "loader-mines",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "blocked": false,
+      "playState": "running"
+    },
+    {
+      "case": "loader-mines-reentry",
+      "state": "exited",
+      "error": "",
+      "reboots": 0
+    },
+    {
+      "case": "direct-quit-wolf",
+      "state": "rebooted",
+      "error": "",
+      "reboots": 1,
+      "rebootCause": "reset-vector",
+      "faultError": "HLE reset requested (reset-vector)",
+      "assertionsPassed": true,
+      "faultReportSha256": "0ed380be8edbab65d3cb6a8357bd776b6242bb0ccab956378a2897bc7686c53c"
+    },
+    {
+      "case": "loader-quit-wolf",
+      "state": "rebooted",
+      "error": "",
+      "reboots": 1,
+      "rebootCause": "reset-vector",
+      "faultError": "HLE reset requested (reset-vector)",
+      "assertionsPassed": true,
+      "faultReportSha256": "0e51262baf929262760cf4730c1014e1db1bdfded2cc9cdda69afeb39fd28e0b"
+    },
+    {
+      "case": "direct-quit-fruit",
+      "state": "rebooted",
+      "error": "",
+      "reboots": 1,
+      "rebootCause": "unexpected-fault",
+      "faultError": "unimplemented fx-9860G syscall 0x01E7 (r4=00000000 r5=B4000000 r6=00000000 r7=00000008), called from 0x00308432",
+      "assertionsPassed": true,
+      "faultReportSha256": "f29530d49b4c965779a720f6b7d19bfcdf4987c66ce3e3b6b5ddaa0f54556a5a"
+    },
+    {
+      "case": "loader-quit-fruit",
+      "state": "rebooted",
+      "error": "",
+      "reboots": 1,
+      "rebootCause": "unexpected-fault",
+      "faultError": "unimplemented fx-9860G syscall 0x01E7 (r4=00000000 r5=A8053E62 r6=00000000 r7=000003DC), called from 0x00308432",
+      "assertionsPassed": true,
+      "faultReportSha256": "df8e8c7be4b88088d3cc17ce7b3c0067dbb47f2260695960e152aaa489d96658"
+    },
+    {
+      "case": "edge-return",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-low-heap",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-context-oom",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-image-oom",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-runner-oom",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-bad-bin",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-no-bin",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-wrong-size",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-bad-profile",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-bad-patch",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-bad-gate",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-bad-catalog",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-no-profile",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-foreign-log",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    },
+    {
+      "case": "edge-ram-conflict",
+      "state": "exited",
+      "error": "",
+      "reboots": 0,
+      "assertionsPassed": true
+    }
+  ]
+}

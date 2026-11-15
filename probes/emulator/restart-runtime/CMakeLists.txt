@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.15)
+project(FxStudioRestartRuntime C)
+include(GenerateG1A)
+find_package(Gint 2.9 REQUIRED)
+add_executable(restart_runtime main.c)
+target_link_libraries(restart_runtime Gint::Gint)
+generate_g1a(TARGET restart_runtime OUTPUT "RestartRuntime.g1a" NAME "RESTART" INTERNAL "@FXREST")
