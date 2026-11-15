@@ -34,4 +34,3 @@ class PreciseFaultTests(unittest.TestCase):
   self.assertEqual(self.r.get(0),0x12);self.assertEqual(self.r.get(4),0x500001)
 
 if __name__=='__main__': unittest.main(verbosity=2)
-
