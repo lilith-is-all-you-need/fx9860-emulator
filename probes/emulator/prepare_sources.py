@@ -211,6 +211,10 @@ for name, fn in [('Cursor_SetFlashStyle','sc_fx_cursor_style'), ('Cursor_SetFlas
                  ('Cursor_SetFlashOn','sc_fx_cursor_on'), ('Cursor_SetFlashOff','sc_fx_cursor_off')]:
     table = replace_once(table, f'"{name}", sc_nothing', f'"{name}", {fn}')
 entries = [
+    (0x003,'TLB_MissRefill','sc_fx_tlb_refill'),
+    (0x01C,'Bdisp_WriteGraph_VRAM','sc_fx_graph_vram'),
+    (0x01D,'Bdisp_WriteGraph_DD','sc_fx_graph_dd'),
+    (0x01E,'Bdisp_WriteGraph_DDVRAM','sc_fx_graph_both'),
     (0x1E7,'InternalContainer_CloseSlot','sc_fx_close_container_slot'),
     (0x218,'InternalSearch_CloseSlot','sc_fx_close_search_slot'),
     (0x15F,'atoi','sc_fx_atoi'), (0x161,'LongToAscHex','sc_fx_hex'),

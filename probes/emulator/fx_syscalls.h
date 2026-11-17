@@ -4,8 +4,39 @@ static bool fx_ok(Emu *e) { return e->cpu.state == CPU_RUNNING && !e->mem.fault;
 static bool fx_partial_syscall(uint32_t n)
 {
     /* Cursor storage works; glyph/blink/keyboard-driven updates are incomplete. */
-    return n==0x1e7 || (n>=0x139 && n<=0x13b) || n==0x80e || n==0x80f || n==0x811 || n==0x812;
+    return n==3 || (n>=0x1c && n<=0x1e) || n==0x1e7 || (n>=0x139 && n<=0x13b) || n==0x80e || n==0x80f || n==0x811 || n==0x812;
 }
+static SC(sc_fx_tlb_refill) { return probe_hw_tlb_refill(&emu->cpu); }
+/* Legacy SDK DISPGRAPH: five 32-bit fields, then two byte-sized modes.
+ * Normal/overwrite = 1/1, also observed at the SDK Tetris call boundary.
+ * Other modes remain explicit partial coverage, not successful no-ops.
+ * ABI reference: SDK fxlib.h Bdisp_WriteGraph_* documentation. */
+static uint32_t fx_graph(Emu *e,uint32_t p,bool screen,bool vram)
+{
+    if(!hle_span(e,p,22,false))return 0;
+    int64_t x=(int32_t)mem_read32(&e->mem,p),y=(int32_t)mem_read32(&e->mem,p+4);
+    uint32_t w=mem_read32(&e->mem,p+8),h=mem_read32(&e->mem,p+12),src=mem_read32(&e->mem,p+16);
+    unsigned modify=mem_read8(&e->mem,p+20),kind=mem_read8(&e->mem,p+21);
+    if(modify!=1||kind!=1||w>16384||h>16384){
+        cpu_report(&e->cpu,"FX WriteGraph unsupported mode/size (%u,%u,%u,%u)",modify,kind,w,h);e->cpu.state=CPU_ERROR;return 0;
+    }
+    uint32_t stride=(w+7)/8;
+    if(!w||!h)return 0;
+    if(!hle_span(e,src,stride*h,false))return 0;
+    uint8_t dd[MONO_VRAM_SIZE];if(screen)t6k11_read(&e->mono,dd);
+    for(int dy=0;dy<64;dy++)for(int dx=0;dx<128;dx++){
+        int64_t sx=dx-x,sy=dy-y;if(sx<0||sy<0||sx>=w||sy>=h)continue;
+        uint8_t bit=0x80>>(dx&7);unsigned at=dy*16+dx/8;
+        bool dark=mem_read8(&e->mem,src+(uint32_t)sy*stride+(uint32_t)sx/8)&(0x80>>(sx&7));
+        if(vram)e->vram[at]=(e->vram[at]&~bit)|(dark?bit:0);
+        if(screen)dd[at]=(dd[at]&~bit)|(dark?bit:0);
+    }
+    if(screen)t6k11_show(&e->mono,dd);
+    return 0;
+}
+static SC(sc_fx_graph_vram) { return fx_graph(emu,a[0],false,true); }
+static SC(sc_fx_graph_dd) { return fx_graph(emu,a[0],true,false); }
+static SC(sc_fx_graph_both) { return fx_graph(emu,a[0],true,true); }
 static SC(sc_fx_close_container_slot) { return probe_hw_close_slot(&emu->cpu,a[0]); }
 static SC(sc_fx_close_search_slot) { return probe_hw_close_search(&emu->cpu,a[0]); }
 static uint8_t fx_lower(uint8_t c) { return c >= 'A' && c <= 'Z' ? c + 32 : c; }

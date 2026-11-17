@@ -122,6 +122,17 @@ static int os_refill(Hardware *h, uint32_t a)
     h->u[n]=(Tlb){(a&~4095u)|0x300|(h->pteh&255),phys|flags,0};
     return (int)n;
 }
+uint32_t probe_hw_tlb_refill(Cpu *cpu)
+{
+    Hardware *h=cpu->mem->probe_hw;
+    /* FX syscall 0003, used explicitly by gint's RAM TLB-miss vector.
+     * Reuse the same bounded OS map as automatic OS-owned refill. No file I/O. */
+    if(!h || !(h->mmucr&1) || os_refill(h,h->pteh&~1023u)<0) {
+        cpu_report(cpu,"FX TLB refill cannot map PTEH (missing/unsupported OS page)");
+        cpu->state=CPU_ERROR;
+    }
+    return 0;
+}
 static bool translate(Hardware *h,uint32_t a,bool fetch,bool write,uint32_t *pa,bool *cache)
 {
     Cpu *cpu=&h->emu->cpu;
@@ -144,6 +155,8 @@ static bool translate(Hardware *h,uint32_t a,bool fetch,bool write,uint32_t *pa,
         if(u<0 && ((cpu->vbr>=0x88000000u&&cpu->vbr<0x88080000u)||
                    (cpu->vbr>=0xa8000000u&&cpu->vbr<0xa8080000u))) {
             Memory *m=&h->emu->mem;
+            /* SH7305 latches VPN on a TLB miss, retaining the current ASID. */
+            h->pteh=(a&~1023u)|(h->pteh&255u);
             m->fault=FAULT_UNMAPPED;m->fault_addr=a;m->fault_write=write;
             return false;
         }

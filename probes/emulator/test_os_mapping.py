@@ -82,6 +82,16 @@ class FirmwareMapping(unittest.TestCase):
  def test_zero_entry_does_not_fall_back_to_host_image(self):
   self.r.write(self.pages,b'\0'*4);self.read(0x300000)
   self.assertEqual(self.s.command('status')['state'],'error')
+ def test_explicit_refill_syscall_matches_firmware(self):
+  va=0x401234;pa=0x08042000;slot=54
+  self.r.write(self.pages+((va-0x300000)>>12)*4,pa.to_bytes(4,'big'))
+  self.r.write(self.cursor,slot.to_bytes(4,'big'))
+  self.write(0xff000000,va);self.execute('440b0009',r4=self.refill)
+  real=(self.read(0xf6000000+slot*256),self.read(0xf7000000+slot*256),self.get(self.cursor))
+  self.write(0xf6000000+slot*256,0);self.r.write(self.cursor,slot.to_bytes(4,'big'))
+  self.write(0xff000000,va);self.s.syscall(3)
+  modeled=(self.read(0xf6000000+slot*256),self.read(0xf7000000+slot*256),self.get(self.cursor))
+  self.assertEqual(real,modeled)
  def test_window_end_is_diagnosed(self):
   self.r.write(self.cursor,(7).to_bytes(4,'big'));self.read(0x500000)
   self.assertEqual(self.s.command('status')['state'],'error')

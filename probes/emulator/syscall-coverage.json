@@ -2,12 +2,12 @@
   "scope": "Historical FX 1.x/2.00 index; not verified exhaustive for GIII 03.70",
   "slotsAudited": 4147,
   "documentedEntries": 404,
-  "dispatchEntries": 160,
+  "dispatchEntries": 164,
   "counts": {
     "data-entry-unimplemented": 2,
-    "documented-unimplemented": 247,
+    "documented-unimplemented": 243,
     "hle-handler": 146,
-    "partial": 8,
+    "partial": 12,
     "stub": 6,
     "undocumented": 3738
   },
@@ -31,9 +31,10 @@
     },
     {
       "number": "0x0003",
-      "status": "documented-unimplemented",
-      "name": "TLB exception handler (miss/invalid/initial page write)",
-      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+      "status": "partial",
+      "name": "TLB_MissRefill",
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm",
+      "handler": "sc_fx_tlb_refill"
     },
     {
       "number": "0x0004",
@@ -155,21 +156,24 @@
     },
     {
       "number": "0x001C",
-      "status": "documented-unimplemented",
+      "status": "partial",
       "name": "Bdisp_WriteGraph_VRAM",
-      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm",
+      "handler": "sc_fx_graph_vram"
     },
     {
       "number": "0x001D",
-      "status": "documented-unimplemented",
+      "status": "partial",
       "name": "Bdisp_WriteGraph_DD",
-      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm",
+      "handler": "sc_fx_graph_dd"
     },
     {
       "number": "0x001E",
-      "status": "documented-unimplemented",
+      "status": "partial",
       "name": "Bdisp_WriteGraph_DDVRAM",
-      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm"
+      "reference": "https://media.taricorp.net/prizm/simon_chm/fx_legacy_syscalls.htm",
+      "handler": "sc_fx_graph_both"
     },
     {
       "number": "0x001F",

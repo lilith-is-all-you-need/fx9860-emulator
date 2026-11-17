@@ -9,6 +9,7 @@ uint32_t probe_hw_read(Memory *, uint32_t, int);
 void probe_hw_write(Memory *, uint32_t, uint32_t, int);
 uint16_t probe_hw_fetch(Cpu *, uint32_t);
 void probe_hw_ldtlb(Cpu *);
+uint32_t probe_hw_tlb_refill(Cpu *);
 void probe_hw_cache(Cpu *, uint16_t, uint32_t);
 uint8_t *probe_hw_pointer(Memory *, uint32_t, uint32_t);
 uint8_t *probe_hw_byte(Memory *, uint32_t, bool);

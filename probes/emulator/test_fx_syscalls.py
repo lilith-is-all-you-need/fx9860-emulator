@@ -36,6 +36,25 @@ class FxSyscalls(unittest.TestCase):
         self.assertTrue(version_calls)
         self.assertTrue(all(c['kind']=='implemented' and c['returned'] for c in version_calls))
 
+    def test_sdk_graph_clipping_stride_and_independent_destinations(self):
+        # 9-pixel rows, clipped one pixel at the left: 010101011 / 101010100.
+        self.r.write(self.q,bytes.fromhex('5580aa00'))
+        self.r.write(self.p,struct.pack('>iiIII2B',-1,2,9,2,self.q,1,1))
+        for n in [0x1c,0x1d,0x1e]:
+            self.s.syscall(0x144)
+            self.s.syscall(n,self.p)
+            self.s.syscall(0x145,self.p+32)
+            self.s.syscall(0x024,self.p+32+1024)
+            expected=bytearray(1024);expected[32]=0xab;expected[48]=0x54
+            self.assertEqual(self.r.read_memory(self.p+32,1024),bytes(expected) if n!=0x1d else bytes(1024))
+            self.assertEqual(self.r.read_memory(self.p+32+1024,1024),bytes(expected) if n!=0x1c else bytes(1024))
+
+    def test_sdk_graph_unsupported_mode_fails_explicitly(self):
+        self.r.write(self.p,struct.pack('>iiIII2B',0,0,8,1,self.q,99,1))
+        self.s.syscall(0x1e,self.p)
+        self.assertEqual(self.s.command('status')['state'],'error')
+        self.assertIn('unsupported mode',self.s.command('status')['error'])
+
     def test_os_version_invalid_span_does_not_partially_write(self):
         # The last ten bytes fit, but the mandatory NUL would be outside RAM.
         self.r.write(0x8807fff6, b'X'*10)

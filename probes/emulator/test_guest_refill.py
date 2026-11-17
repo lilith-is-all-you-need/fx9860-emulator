@@ -32,5 +32,14 @@ class PreciseFaultTests(unittest.TestCase):
  def test_delay_slot_fault_retries_branch(self):
   self.execute('a0006044',r4=0x500000)
   self.assertEqual(self.r.get(0),0x12);self.assertEqual(self.r.get(4),0x500001)
+ def test_guest_vector_calls_os_refill_for_latched_fault_page(self):
+  # Authored gint-style vector: save PR, call FX syscall 3, restore PR, RTE.
+  self.r.write(0xa8020400,bytes.fromhex('4f22d203420be0034f26002b0009000980010070'))
+  self.execute('2402',r4=0xff000010,r0=0x00fc0105) # invalidate translations
+  self.execute('6042',r4=0x300020)
+  self.assertEqual(self.r.get(0),0x4050524f) # fixture header, not injected result
+  self.assertEqual(self.r.get(4),0x300020)
+  calls=self.s.command('syscalls')['recent']
+  self.assertTrue(any(c['number']==3 and c['returned'] for c in calls))
 
 if __name__=='__main__': unittest.main(verbosity=2)
