@@ -8,6 +8,7 @@
 #include "keys.h"
 #include "syscall_trace.h"
 #include "hardware_model.h"
+#include "syscalls_impl.h"
 #include "platform.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,6 +25,8 @@ typedef struct { int type; uint32_t address, size; } Breakpoint;
 static Emu *machine;
 static const char *os_firmware_path;
 static bool file_map_stress;
+/* Optional lifecycle stress: an OS redraw can replace a guest-owned LCD. */
+static bool menu_vram_stress;
 static char loaded_os_version[11];
 static SOCKET gdb_listener = INVALID_SOCKET, control_listener = INVALID_SOCKET;
 static SOCKET gdb_client = INVALID_SOCKET, control_client = INVALID_SOCKET;
@@ -372,6 +375,7 @@ int probe_os_menu(Cpu *cpu)
         if(probe_hw_quit(machine))cpu->state=CPU_EXITED;
         return 1;
     }
+    if(menu_action==1 && menu_vram_stress)fx_show_vram(machine);
     return 0;
 }
 void probe_clear_key_buffer(void)
@@ -464,6 +468,7 @@ int bridge_main(int argc,char **argv)
         else if(!strcmp(argv[i],"--legacy-memory"))hardware_model=false;
         else if(!strcmp(argv[i],"--os-firmware")&&i+1<argc)os_firmware_path=argv[++i];
         else if(!strcmp(argv[i],"--file-map-stress"))file_map_stress=true;
+        else if(!strcmp(argv[i],"--menu-vram-stress"))menu_vram_stress=true;
         else if(!strcmp(argv[i],"--fault-policy")&&i+1<argc){const char *v=argv[++i];if(strcmp(v,"pause")&&strcmp(v,"reboot"))return 2;fault_pause=!strcmp(v,"pause");}
         else if(!strcmp(argv[i],"--step-limit")&&i+1<argc){if(!parse_number(argv[++i],UINT64_MAX,&step_limit))return 2;}
         else if(!strcmp(argv[i],"--heap-bytes")&&i+1<argc){if(!parse_number(argv[++i],UINT32_MAX,&heap_bytes)||heap_bytes<16||(heap_bytes&7))return 2;}

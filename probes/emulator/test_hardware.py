@@ -127,6 +127,12 @@ class HardwareTests(unittest.TestCase):
         self.key_wait(0,wait=False)
         self.wait_menu()
         self.assertTrue(self.s.command('menu-resume')['ok'])
+        time.sleep(.05)
+        # Selecting the same icon resumes this wait; it is not a new launch
+        # and the selection key must not be delivered to the application.
+        self.assertFalse(self.s.command('status')['osMenu'])
+        self.assertEqual(self.s.command('status')['pc'],'80010070')
+        self.assertEqual(self.r.read_memory(0x08102000,8),bytes(8))
         self.press('EXE'); self.r.receive()
         self.assertEqual(self.r.read_memory(0x08102000,8),bytes.fromhex('0000000300000002'))
         self.s.syscall(0x248,4,9,0)
@@ -202,6 +208,36 @@ class HardwareTests(unittest.TestCase):
         self.s.syscall(0x420,240)
         self.assertGreater(int.from_bytes(self.r.read_memory(0x88041000,4),'big'),0)
         self.s.syscall(0x11b,timer); self.s.syscall(0x119,timer)
+
+    def test_hardware_report_image_allocations_are_rejected_in_small_heap(self):
+        # The reports prove these requests failed, not an exact heap capacity.
+        with Session(fixture(self.root/'small.g1a'),self.root/'small',
+                     ['--memory-profile','probe3']) as s:
+            context=s.syscall(0xacd,0xbdc)
+            self.assertNotEqual(context,0)
+            for required in (0x12fff,0x20fff):
+                self.assertEqual(s.syscall(0xacd,required),0)
+            s.syscall(0xacc,context)
+            self.assertEqual(s.syscall(0xacd,0xbdc),context)
+
+    def test_menu_vram_stress_redraws_on_resume_without_unblocking_wait(self):
+        with Session(fixture(self.root/'redraw.g1a'),self.root/'redraw',
+                     ['--menu-vram-stress']) as s:
+            s.syscall(0x143);s.syscall(0x28)
+            before=(self.root/'redraw/screen.bmp').read_bytes()
+            vram=s.syscall(0x135)
+            s.remote.write(vram,bytes([255])*1024)
+            s.syscall(0x248,4,9,0)
+            s.remote.set(15,0x8807fff0)
+            s.remote.write(0x8807fff0,bytes.fromhex('0000000008102008'))
+            s.syscall(0x247,0x08102000,0x08102004,0,1,wait=False)
+            deadline=time.monotonic()+2
+            while not s.command('status')['osMenu'] and time.monotonic()<deadline:time.sleep(.01)
+            self.assertTrue(s.command('menu-resume')['ok'])
+            time.sleep(.1)
+            self.assertEqual(s.command('status')['pc'],'80010070')
+            self.assertNotEqual((self.root/'redraw/screen.bmp').read_bytes(),before)
+            s.command('key',key='EXE',down=True);s.remote.receive()
 
 
 if __name__ == '__main__': unittest.main(verbosity=2)

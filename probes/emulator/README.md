@@ -15,7 +15,8 @@ Probe3 的 03.70.0200 实机回传已确认映射、回调和恢复检查通过�
 同日后续：补齐 0x0218 搜索槽位关闭，修正 FX Bfile 句柄的设备字节，
 新增由 Probe3 地址确定的共存压力布局。完整的
 [KhiCAS 专用 Loader](../mapped-loader/README.zh-CN.md) 已在模拟器完成启动、
-计算、会话保存、菜单退出与重入；该新 Loader 自身仍待实机验收。
+计算、会话保存、菜单替换退出与新开实例；这不覆盖 MENU 后直接选回同一图标。
+后续实机反馈首次启动可用，但直接选回卡住，完整生命周期验收仍未通过。
 
 ## 来源与结构
 
@@ -202,3 +203,14 @@ Wolf 的 Quit 路径直接跳 `A0000000`，Fruit 的退出回调调用未知 `0x
 这是 GIII 类 SH7305/128×64 显示与部分系统调用的模拟器，并不是完整 Casio OS。采用上游 `MODEL_FX9750G3`（上游代码注明同属 fx-9860GIII / Graph 35+E II）。菜单内置应用、USB、DSP 算术指令等上游未模拟部分仍不可用；未知系统调用会报错。OS 文本替代字体可能与实机不同，gint 自带字体则由目标代码绘制。
 
 “断点、变量、调用栈可用”与“所有硬件行为精确”是不同验收项。通过此处测试不等于所有 G1A、所有外设、所有 OS 版本或真机都已验证。原生工具链的 C/C++ 四种样例已单独通过上述验证；真机安装仍需实机验收。历史 CAS01 与本次新编译样例的证据分别保留。
+# MENU resume stress (2026-11-17)
+
+`--menu-vram-stress` redraws the OS VRAM when `menu-resume` returns from the
+HLE menu. It can expose a stale OS loading screen hidden behind a guest-owned
+display buffer. This is opt-in stress, not a validated full Casio menu model.
+Resuming the same icon leaves GetKey/GetKeyWait suspended until an application
+key arrives; it neither starts another add-in instance nor invokes quit cleanup.
+`menu-replace` is a separate operation and invokes registered cleanup.
+Hardware tests cover that distinction, redraw behavior, and the two real-device
+RAM allocation rejections in the bounded `probe3` heap model. The reports alone
+do not determine the actual device's free contiguous heap size.
